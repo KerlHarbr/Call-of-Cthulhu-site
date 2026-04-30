@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Листы</title>
+		<link rel="stylesheet" href="koc_styles.css">
+		<link rel="stylesheet" href="koc_sheet_styles.css">
+		<link rel="icon" type="image/x-icon" href="ph32.png">
+		<script src="koc_main_script.js"></script>
+		<script src="koc_sheet_script.js"></script>
+	</head>
+	<body>
+		<header>
+			<div class="logo">
+				<a href="koc_main.html">
+					<img src="ph2.png" alt="logo"/>
+				</a>
+			</div>
+			<nav>
+				<a href="koc_main.html" class="nav_button">На главную</a>
+				<a href="koc_sheet.html" class="nav_button">Интерактивные листы</a>
+				<a href="koc_profile.html" class="nav_button">Профиль</a>
+			</nav>
+		</header>
+
+		<div class="main_box">
+			<form autocomplete="off" id="player_sheet">
+				<div class="block_title">Лист 1</div>
+				<div class="blocks_wraper"><!---Бокс для 1-3 блоков--->
+					<div class="list_blocks" id="block_1">
+						<div class="innerty">
+							<div class="char_box">
+							<div class="block_title">Сыщик</div>
+								<div class="info_box">
+									<div class="skill_name">Имя персонажа</div>
+									<div class="skill_box">
+										<input type="text" id="character_name" oninput="test2(id, 'player_name')" size="32" maxlength="25"/>
+									</div>
+								</div>
+								<div class="info_box">
+									<div class="skill_name">Имя игрока</div>
+									<div class="skill_box">
+										<input type="text" id="player_name" size="32" maxlength="25"/>
+									</div>
+								</div>
+								<div class="info_box">
+									<div class="skill_name">Род занятий</div>
+									<div class="skill_box">
+										<input type="text" id="profession" size="32" maxlength="25"/>
+									</div>
+								</div>
+								<div class="info_box" id="age_text">
+									<div class="skill_name">Возраст</div>
+									<div class="skill_box">
+										<input type="number" id="age" oninput="speed_count('str_full', 'dex_full', 'bod_full', id, 'cok_speed')" min="0" max="999">
+									</div>
+								</div>
+								<div class="info_box" id="gender_text">
+									<div class="skill_name">Пол</div>
+									<div class="skill_box">
+										<input list="gender_list" type="text" id="gender" />
+											<datalist id="gender_list">
+												<option value="Мужской" />
+												<option value="Женский" />
+											</datalist>
+									</div>
+								</div>
+								<div class="info_box">
+									<div class="skill_name">Место жительства</div>
+									<div class="skill_box">
+										<input type="text" id="place_of_living" size="32" maxlength="25"/>
+									</div>
+								</div>
+								<div class="info_box">
+									<div class="skill_name">Место рождения</div>
+									<div class="skill_box">
+										<input type="text" id="place_of_birth" size="32" maxlength="25"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="list_blocks" id="block_2">
+						<div class="block_title">Характеристики</div>
+						<div>
+							<div class="skill_name">СИЛ</div>
+							<div class="char_box">
+								<input type="number" id="str_full" oninput="skill_count(id, 'str_half', 'str_fifth'); speed_count('str_full', 'dex_full', 'bod_full', 'age', 'cok_speed'); btd_komp_count('str_full', 'bod_full', 'btd_btd', 'btd_komp')" min="0" max="999">
+								<input type="number" id="str_half" min="0" max="999">
+								<input type="number" id="str_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">ЛВК</div>
+							<div class="char_box">
+								<input type="number" id="dex_full" oninput="skill_count(id, 'dex_half', 'dex_fifth'); speed_count('str_full', 'dex_full', 'bod_full', 'age', 'cok_speed')" min="0" max="999">
+								<input type="number" id="dex_half" min="0" max="999">
+								<input type="number" id="dex_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">ИНТ</div>
+							<div class="char_box">
+								<input type="number" id="int_full" oninput="skill_count(id, 'int_half','int_fifth')" min="0" max="999">
+								<input type="number" id="int_half" min="0" max="999">
+								<input type="number" id="int_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">ВЫН</div>
+							<div class="char_box">
+								<input type="number" id="endu_full" oninput="skill_count(id, 'endu_half','endu_fifth'); health_count('bod_full','endu_full','health_max')" min="0" max="999">
+								<input type="number" id="endu_half" min="0" max="999">
+								<input type="number" id="endu_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">НАР</div>
+							<div class="char_box">
+								<input type="number" id="look_full" oninput="skill_count(id, 'look_half','look_fifth')" min="0" max="999">
+								<input type="number" id="look_half" min="0" max="999">
+								<input type="number" id="look_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">МОЩ</div>
+							<div class="char_box">
+								<input type="number" id="pow_full" oninput="skill_count(id, 'pow_half', 'pow_fifth'); set_value('sanity_start',get_value('pow_full')); set_value('magic_max',get_value('pow_fifth'))" min="0" max="999">
+								<input type="number" id="pow_half" min="0" max="999">
+								<input type="number" id="pow_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">ТЕЛ</div>
+							<div class="char_box">
+								<input type="number" id="bod_full" oninput="skill_count(id, 'bod_half', 'bod_fifth'); speed_count('str_full', 'dex_full', 'bod_full', 'age', 'cok_speed'); health_count('bod_full','endu_full','health_max'); btd_komp_count('str_full', 'bod_full', 'btd_btd', 'btd_komp')" min="0" max="999">
+								<input type="number" id="bod_half" min="0" max="999">
+								<input type="number" id="bod_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">ОБР</div>
+							<div class="char_box">
+								<input type="number" id="edu_full" oninput="skill_count(id, 'edu_half', 'edu_fifth')" min="0" max="999">
+								<input type="number" id="edu_half" min="0" max="999">
+								<input type="number" id="edu_fifth" min="0" max="999">
+							</div>
+						</div>
+						<div>
+							<div class="skill_name">Скорость</div>
+							<div class="char_box">
+								<input type="number" id="cok_speed" min="0" max="999">
+							</div>
+						</div>
+					</div>
+					<div class="list_blocks" id="block_3">
+						<div class="photo_box">
+							<div class="block_title">Фото сыщика</div>
+							Место для фото
+						</div>
+					</div>
+				</div>
+				
+				<div class="blocks_wraper">
+					<div class="list_blocks" id="block_4">
+						<!---<div class="block_title"></div>--->
+						<div class="innerty">
+							<div class="char_box">
+								<div class="block_subtitle">Здоровье</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Максимум здоровья</div>
+									<div class="skill_box">
+										<input type="number" id="health_max" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Текущее здоровье</div>
+									<div class="skill_box">	
+										<input type="number" id="health_current" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Серьёзная рана</div>
+									<div class="skill_box">
+										<input type="checkbox" id="injury" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Без сознания</div>
+									<div class="skill_box">
+										<input type="checkbox" id="unconscious" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">При смерти</div>
+									<div class="skill_box">
+										<input type="checkbox" id="death_door" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="block_subtitle">Рассудок</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Начальный рассудок</div>
+									<div class="skill_box">
+										<input type="number" id="sanity_start" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Максимум рассудка</div>
+									<div class="skill_box">
+										<input type="number" id="sanity_max" min="0" max="99" value="99" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Текущий рассудок</div>
+									<div class="skill_box">
+										<input type="number" id="sanity_current" min="0" max="99" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Временное безумие</div>
+									<div class="skill_box">
+										<input type="checkbox" id="mild_madness" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Бессрочное безумие</div>
+									<div class="skill_box">
+										<input type="checkbox" id="hard_madness" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="block_subtitle">Магия и удача</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Максимум пунктов магии</div>
+									<div class="skill_box">
+										<input type="number" id="magic_max" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Текущие пункты магии</div>
+									<div class="skill_box">
+										<input type="number" min="0" id="magic_curent" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Текущиая удача</div>
+									<div class="skill_box">
+										<input type="number" id="luck" min="0" max="99" value="0" />
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="blocks_wraper">
+					<div class="list_blocks" id="block_5">
+						<div class="block_title">Навыки сыщика</div>
+						<div class="skills_innerty">
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Антропология</div>
+									<div class="skill_box">
+										<input type="number" id="antro_full" oninput="skill_count(id, 'antro_half', 'antro_fifth')" min="1" max="99" value="1"/>
+										<input type="number" id="antro_half" min="0" max="99" value="0"/>
+										<input type="number" id="antro_fifth" min="0" max="99" value="0"/>
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Артртиллерия</div>
+									<div class="skill_box">
+										<input type="number" id="artillery_full" oninput="skill_count(id, 'artillery_half', 'artillery_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="artillery_half" min="0" max="99" value="0" />
+										<input type="number" id="artillery_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Археология</div>
+									<div class="skill_box">
+										<input type="number" id="archeology_full" oninput="skill_count(id, 'archeology_half', 'archeology_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="archeology_half" min="0" max="99" value="0" />
+										<input type="number" id="archeology_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Ближний бой <sub>разн.</sub></div>
+									<div class="skill_box">								
+										<input type="number" id="fight_full" oninput="skill_count(id, 'fight_half', 'fight_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="fight_half" min="0" max="99" value="0" />
+										<input type="number" id="fight_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Бухгалтерское дело</div>
+									<div class="skill_box">								
+										<input type="number" id="account_full" oninput="skill_count(id, 'account_half', 'account_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="account_half" min="2" max="99" value="2" />
+										<input type="number" id="account_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Верховая езда</div>
+									<div class="skill_box">
+										<input type="number" id="horse_full" oninput="skill_count(id, 'horse_half', 'horse_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="horse_half" min="2" max="99" value="2" />
+										<input type="number" id="horse_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Взлом</div>
+									<div class="skill_box">
+										<input type="number" id="breakin_full" oninput="skill_count(id, 'breakin_half','breakin_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="breakin_half" min="0" max="99" value="0" />
+										<input type="number" id="breakin_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Взрывчатка</div>
+									<div class="skill_box">								
+										<input type="number" id="explosive_full" oninput="skill_count(id, 'explosive_half', 'explosive_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="explosive_half" min="0" max="99" value="0" />
+										<input type="number" id="explosive_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Внимание</div>
+									<div class="skill_box">
+										<input type="number" id="atention_full" oninput="skill_count(id, 'atention_half', 'atention_fifth')" min="25" max="99" value="25" />
+										<input type="number" id="atention_half" min="12" max="99" value="12" />
+										<input type="number" id="atention_fifth" min="5" max="99" value="5" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Вождение автомобиля</div>
+									<div class="skill_box">
+										<input type="number" id="drive_full" oninput="skill_count(id, 'drive_half', 'drive_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="drive_half" min="10" max="99" value="10" />
+										<input type="number" id="drive_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Выживание</div>
+									<div class="skill_box">
+										<input type="number" id="survive_full" oninput="skill_count(id, 'survive_half', 'survive_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="survive_half" min="5" max="99" value="5" />
+										<input type="number" id="survive_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Гипноз</div>
+									<div class="skill_box">
+										<input type="number" id="gipno_full" oninput="skill_count(id, 'gipno_half', 'gipno_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="gipno_half" min="0" max="99" value="0" />
+										<input type="number" id="gipno_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Естествознание</div>
+									<div class="skill_box">
+										<input type="number" id="natural_science_full" oninput="skill_count(id, 'natural_science_half', 'natural_science_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="natural_science_half" min="5" max="99" value="5" />
+										<input type="number" id="natural_science_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Запугивание</div>
+									<div class="skill_box">
+										<input type="number" id="intimidation_full" oninput="skill_count(id, 'intimidation_half', 'intimidation_fifth')" min="15" max="99" value="15" />
+										<input type="number" id="intimidation_half" min="7" max="99" value="7" />
+										<input type="number" id="intimidation_fifth" min="3" max="99" value="3" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Искусство/ремесло <sub>спец.</sub></div>
+									<div class="skill_box">
+										<input type="number" id="art_full" oninput="skill_count(id, 'art_half', 'art_fifth')" min="5" max="99" value="5"/>
+										<input type="number" id="art_half" min="2" max="99" value="2"/>
+										<input type="number" id="art_fifth" min="1" max="99" value="1"/>
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">История</div>
+									<div class="skill_box">
+										<input type="number" id="history_full" oninput="skill_count(id, 'history_half', 'history_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="history_half" min="2" max="99" value="2" />
+										<input type="number" id="history_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Красноречие</div>
+									<div class="skill_box">
+										<input type="number" id="eloquence_full" oninput="skill_count(id, 'eloquence_half', 'eloquence_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="eloquence_half" min="2" max="99" value="2" />
+										<input type="number" id="eloquence_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Лазание</div>
+									<div class="skill_box">
+										<input type="number" id="climb_full" oninput="skill_count(id, 'climb_half', 'climb_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="climb_half" min="10" max="99" value="10" />
+										<input type="number" id="climb_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Ловкость рук</div>
+									<div class="skill_box">
+										<input type="number" id="jugglery_full" oninput="skill_count(id, 'jugglery_half', 'jugglery_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="jugglery_half" min="5" max="99" value="5" />
+										<input type="number" id="jugglery_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Маскировка</div>
+									<div class="skill_box">
+										<input type="number" id="camo_full" oninput="skill_count(id, 'camo_half', 'camo_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="camo_half" min="2" max="99" value="2" />
+										<input type="number" id="camo_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Медецина</div>
+									<div class="skill_box">
+										<input type="number" id="medicine_full" oninput="skill_count(id, 'medicine_half', 'medicine_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="medicine_half" min="0" max="99" value="0" />
+										<input type="number" id="medicine_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Метание</div>
+									<div class="skill_box">
+										<input type="number" id="throwing_full" oninput="skill_count(id, 'throwing_half', 'throwing_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="throwing_half" min="10" max="99" value="10" />
+										<input type="number" id="throwing_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Механика</div>
+									<div class="skill_box">
+										<input type="number" id="mechanic_full" oninput="skill_count(id, 'mechanic_half', 'mechanic_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="mechanic_half" min="5" max="99" value="5" />
+										<input type="number" id="mechanic_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Мифы Ктулху</div>
+									<div class="skill_box">
+										<input type="number" id="ctulkhu_full" oninput="max_sanity('sanity_max', id); skill_count(id, 'ctulkhu_half', 'ctulkhu_fifth')" min="0" max="99" value="0" />
+										<input type="number" id="ctulkhu_half" min="0" max="99" value="0" />
+										<input type="number" id="ctulkhu_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Наука <sub>спец.</sub></div>
+									<div class="skill_box">
+										<input type="number" id="science_full" oninput="skill_count(id, 'science_half', 'science_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="science_half" min="0" max="99" value="0" />
+										<input type="number" id="science_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Обаяние</div>
+									<div class="skill_box">
+										<input type="number" id="charm_full" oninput="skill_count(id, 'charm_half', 'charm_fifth')" min="15" max="99" value="15" />
+										<input type="number" id="charm_half" min="7" max="99" value="7" />
+										<input type="number" id="charm_fifth" min="3" max="99" value="3" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Обращение с животными</div>
+									<div class="skill_box">
+										<input type="number" id="animal_care_full" oninput="skill_count(id, 'animal_care_half', 'animal_care_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="animal_care_half" min="2" max="99" value="2" />
+										<input type="number" id="animal_care_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Оккультизм</div>
+									<div class="skill_box">
+										<input type="number" id="occultizm_full" oninput="skill_count(id, 'occultizm_half', 'occultizm_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="occultizm_half" min="2" max="99" value="2" />
+										<input type="number" id="occultizm_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Ориентирование</div>
+									<div class="skill_box">
+										<input type="number" id="oriet_full" oninput="skill_count(id, 'oriet_half', 'oriet_fifth')" min="10" max="99" value="10"/>
+										<input type="number" id="oriet_half" min="5" max="99" value="5"/>
+										<input type="number" id="oriet_fifth" min="2" max="99" value="2"/>
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Оценка</div>
+									<div class="skill_box">
+										<input type="number" id="evalua_full" oninput="skill_count(id, 'evalua_half', 'evalua_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="evalua_half" min="2" max="99" value="2" />
+										<input type="number" id="evalua_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Первая помощь</div>
+									<div class="skill_box">
+										<input type="number" id="first_med_full" oninput="skill_count(id, 'first_med_half', 'first_med_fifth')" min="30" max="99" value="30" />
+										<input type="number" id="first_med_half" min="15" max="99" value="15" />
+										<input type="number" id="first_med_fifth" min="6" max="99" value="6" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Пилотирование</div>
+									<div class="skill_box">
+										<input type="number" id="pilot_full" oninput="skill_count(id, 'pilot_half', 'pilot_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="pilot_half" min="0" max="99" value="0" />
+										<input type="number" id="pilot_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Плавание</div>
+									<div class="skill_box">
+										<input type="number" id="swiming_full" oninput="skill_count(id, 'swiming_half', 'swiming_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="swiming_half" min="10" max="99" value="10" />
+										<input type="number" id="swiming_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Подводное плавание</div>
+									<div class="skill_box">
+										<input type="number" id="underwater_full" oninput="skill_count(id, 'underwater_half', 'underwater_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="underwater_half" min="0" max="99" value="0" />
+										<input type="number" id="underwater_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Прыжки</div>
+									<div class="skill_box">
+										<input type="number" id="jump_full" oninput="skill_count(id, 'jump_half', 'jump_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="jump_half" min="10" max="99" value="10" />
+										<input type="number" id="jump_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Психоанализ</div>
+									<div class="skill_box">
+										<input type="number" id="psychoanalysis_full" oninput="skill_count(id, 'psychoanalysis_half', 'psychoanalysis_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="psychoanalysis_half" min="0" max="99" value="0" />
+										<input type="number" id="psychoanalysis_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Психология</div>
+									<div class="skill_box">
+										<input type="number" id="psychology_full" oninput="skill_count(id, 'psychology_half', 'psychology_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="psychology_half" min="5" max="99" value="5" />
+										<input type="number" id="psychology_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Работа в библиотеке</div>
+									<div class="skill_box">
+										<input type="number" id="booksearch_full" oninput="skill_count(id, 'booksearch_half', 'booksearch_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="booksearch_half" min="10" max="99" value="10" />
+										<input type="number" id="booksearch_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Работа с компьютером</div>
+									<div class="skill_box">
+										<input type="number" id="pcsirf_full" oninput="skill_count(id, 'pcsirf_half', 'pcsirf_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="pcsirf_half" min="2" max="99" value="2" />
+										<input type="number" id="pcsirf_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Скрытность</div>
+									<div class="skill_box">
+										<input type="number" id="stels_full" oninput="skill_count(id, 'stels_half', 'stels_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="stels_half" min="10" max="99" value="10" />
+										<input type="number" id="stels_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Слух</div>
+									<div class="skill_box">
+										<input type="number" id="hearing_full" oninput="skill_count(id, 'hearing_half', 'hearing_fifth')" min="20" max="99" value="20" />
+										<input type="number" id="hearing_half" min="10" max="99" value="10" />
+										<input type="number" id="hearing_fifth" min="4" max="99" value="4" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Средства</div>
+									<div class="skill_box">
+										<input type="number" id="moneys_full" oninput="skill_count(id, 'moneys_half', 'moneys_fifth')" min="0" max="99" value="0"/>
+										<input type="number" id="moneys_half" min="0" max="99" value="0"/>
+										<input type="number" id="moneys_fifth" min="0" max="99" value="0"/>
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Стрельба</div>
+									<div class="skill_box">
+										<input type="number" id="fire_full" oninput="skill_count(id, 'fire_half', 'fire_fifth')" min="10" max="99" value="10"/>
+										<input type="number" id="fire_half" min="5" max="99" value="5"/>
+										<input type="number" id="fire_fifth" min="2" max="99" value="2"/>
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Тайные знания <sub>спец.</sub></div>
+									<div class="skill_box">
+										<input type="number" id="mystery_full" oninput="skill_count(id, 'mystery_half', 'mystery_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="mystery_half" min="0" max="99" value="0" />
+										<input type="number" id="mystery_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Убеждение</div>
+									<div class="skill_box">
+										<input type="number" id="convict_full" oninput="skill_count(id, 'convict_half', 'convict_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="convict_half" min="5" max="99" value="5" />
+										<input type="number" id="convict_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Уклонение</div>
+									<div class="skill_box">
+										<input type="number" id="dodge_full" oninput="skill_count(id, 'dodge_half', 'dodge_fifth'); set_text_by_id('btd_doje_full', get_value(id)); set_text_by_id('btd_doje_half', get_value('dodge_half')); set_text_by_id('btd_doje_fifth', get_value('dodge_fifth'))" min="0" max="99" value="0"/>
+										<input type="number" id="dodge_half" min="0" max="99" value="0"/>
+										<input type="number" id="dodge_fifth" min="0" max="99" value="0"/>
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Упревление тяж. машинами</div>
+									<div class="skill_box">
+										<input type="number" id="heavy_machine_full" oninput="skill_count(id, 'heavy_machine_half', 'heavy_machine_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="heavy_machine_half" min="0" max="99" value="0" />
+										<input type="number" id="heavy_machine_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Чтение по губам</div>
+									<div class="skill_box">
+										<input type="number" id="lips_full" oninput="skill_count(id, 'lips_half', 'lips_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="lips_half" min="0" max="99" value="0" />
+										<input type="number" id="lips_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Чтение следов</div>
+									<div class="skill_box">
+										<input type="number" id="pathfind_full" oninput="skill_count(id, 'pathfind_half', 'pathfind_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="pathfind_half" min="5" max="99" value="5" />
+										<input type="number" id="pathfind_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Электрика</div>
+									<div class="skill_box">
+										<input type="number" id="electrics_full" oninput="skill_count(id, 'electrics_half', 'electrics_fifth')" min="10" max="99" value="10" />
+										<input type="number" id="electrics_half" min="5" max="99" value="5" />
+										<input type="number" id="electrics_fifth" min="2" max="99" value="2" />
+									</div>
+								</div>
+							</div>
+							<div class="char_box">
+								<div class="skill_subbox">
+									<div class="skill_name">Электронника</div>
+									<div class="skill_box">
+										<input type="number" id="electronics_full" oninput="skill_count(id, 'electronics_half', 'electronics_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="electronics_half" min="0" max="99" value="0" />
+										<input type="number" id="electronics_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Юриспруденция</div>
+									<div class="skill_box">
+										<input type="number" id="law_full" oninput="skill_count(id, 'law_half', 'law_fifth')" min="5" max="99" value="5" />
+										<input type="number" id="law_half" min="2" max="99" value="2" />
+										<input type="number" id="law_fifth" min="1" max="99" value="1" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Язык иностранный</div>
+									<div class="skill_box">
+										<input type="number" id="foreign_language_full" oninput="skill_count(id, 'foreign_language_half', 'foreign_language_fifth')" min="1" max="99" value="1" />
+										<input type="number" id="foreign_language_half" min="0" max="99" value="0" />
+										<input type="number" id="foreign_language_fifth" min="0" max="99" value="0" />
+									</div>
+								</div>
+								<div class="skill_subbox">
+									<div class="skill_name">Язык родной</div>
+									<div class="skill_box">
+										<input type="number" id="rus_language_full" oninput="skill_count(id, 'rus_language_half', 'rus_language_fifth')" min="0" max="99" value="0"/>
+										<input type="number" id="rus_language_half" min="0" max="99" value="0"/>
+										<input type="number" id="rus_language_fifth" min="0" max="99" value="0"/>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="blocks_wraper">
+					<div class="list_blocks" id="block_6">
+						<div class="block_title">Оружие</div>
+						<div class="char_box">Тут сложно</div>
+					</div>
+					<div class="list_blocks" id="block_7">
+						<div class="block_title">Бой</div>
+						<div class="char_box">
+							<div class="btd_subbox">
+								<div class="btd_name"><pre>Бонус
+к урону</pre></div>
+								<div class="btd_content">
+									<div id="btd_btd">
+										0
+									</div>
+								</div>
+							</div>
+							<div class="btd_subbox">
+								<div class="btd_name"><pre>Комп-
+лекция</pre></div>
+								<div class="btd_content">
+									<div id="btd_komp">0</div>
+								</div>
+							</div>
+							<div class="btd_subbox">
+								<div class="btd_name"><pre>Укло-
+нение</pre></div>
+								<div class="btd_content">
+									<div id="btd_doje_full">0</div>
+									<div id="btd_doje_half">0</div>
+									<div id="btd_doje_fifth">0</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="block_title">Лист 2</div>
+				<div class="blocks_wraper">
+					<div class="list_blocks" id="block_8">
+						<div class="block_title">Биография</div>
+					</div>
+					<div class="list_blocks" id="block_9">
+						<div class="block_title">Имущество и снаражение</div>
+					</div>
+					<div class="list_blocks" id="block_10">
+						<div class="block_title">Наличные и активы</div>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<footer>
+			<div class="footer_links">
+				<a href="koc_help.html" class="footer_link">
+					Помощь
+				</a>
+				<a href="koc_copyright.html" class="footer_link">
+					Правообладателям
+				</a>
+			</div>
+			<div class="socials">
+				
+			</div>
+			<div class="copyright">
+				© Скиданов Кирилл, 2026. Все права справа.
+			</div>
+		</footer>
+	</body>
+</html>
