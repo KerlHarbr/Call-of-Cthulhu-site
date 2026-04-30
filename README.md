@@ -1,2 +1,2 @@
-# Call-of-Cthulhu-site
-Diplom
+# Сайт НРИ Зов Ктулху
+Дипломный сайт
