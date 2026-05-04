@@ -23,7 +23,10 @@
 		</header>
 
 		<div class="main_box">
-			<form autocomplete="off" id="player_sheet">
+			<form autocomplete="off" id="player_sheet" method="post">
+				<div class="block_title">
+					<button type="submit" id="submit_btt" onclick="send_sheet(id)">Отправить лист</button>
+				</div>
 				<div class="block_title">Лист 1</div>
 				<div class="blocks_wraper"><!---Бокс для 1-3 блоков--->
 					<div class="list_blocks" id="block_1">
