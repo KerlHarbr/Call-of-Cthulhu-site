@@ -49,18 +49,18 @@ app.post("/login", urlencodedParser, function(request, response) {
 //обработка листа
 app.post("/lists", jsonParser, function(request, response) {
 	const sheet = request.body;
-	console.log(sheet);
-	if(!sheet) return response.status(400);
-	
+	if(!sheet) return response.status(400);//в sheet прилетает json листка. Как на лонгстори
+	const responseText = 'znach ' + sheet.character_name;
+	response.send(responseText);
 });
 
 //обработка ошибки 404
-app.use(function(request, response) {
-	var time = new Date().toLocaleTimeString();
-	response.status(404);
-	response.sendFile(__dirname + "/404.html");
-	console.log(time + " | Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
-});
+// app.use(function(request, response) {
+// 	var time = new Date().toLocaleTimeString();
+// 	response.status(404);
+// 	response.sendFile(__dirname + "/404.html");
+// 	console.log(time + " | Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
+// });
 //обработчики конец
 
 app.listen(port, function() {
