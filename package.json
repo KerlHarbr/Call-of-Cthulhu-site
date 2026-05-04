@@ -1,0 +1,7 @@
+{
+	"name": "ilop_cite",
+	"version": "0.4.1",
+	"dependencies": {
+		"express": "^5.2.1"
+	}
+}

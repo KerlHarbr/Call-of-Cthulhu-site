@@ -1,0 +1,65 @@
+/*хэдр начало*/
+header {
+	background-color: #f7f4cd;
+	padding: 5px;
+	display: flex; /*шоб при уменьшении размера экрана навбар был внутри (Кирилл)*/
+	border-bottom: 2px solid #e6e1be;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+header a {
+	color: black;
+}
+.logo {
+	float: left;
+	padding: 1px;
+	padding-left: 5px;
+	padding-right: 5px;
+}
+.nav_button {
+	float: left;
+	margin: 5px;
+	padding: 3px;
+	border: 1px solid black;
+	border-radius: 10px;
+	text-decoration: none;
+	box-sizing: border-box;
+}
+.logo img {
+	width: 30px;
+	height: 30px;
+}
+/*хэдр конец*/
+/*футр начало*/
+/* с футром как с хэдэром надо сделать, потом разберись (Кирилл)*/
+footer {
+	color: #e3e3e3;
+	background-color: #212121;
+	padding: 10px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+footer a {
+	color: #e3e3e3;
+}
+.footer_links {
+	
+}
+.footer_link {
+	margin: 2.5px;
+}
+.copyright {
+
+}
+/*футр конец*/
+body {
+	margin: 0px;
+	clear: both;
+}
+/*тело для статей*/
+.main_box {
+	padding-left: 10%;
+	padding-right: 10%;
+}
