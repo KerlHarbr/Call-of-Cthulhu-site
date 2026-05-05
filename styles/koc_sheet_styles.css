@@ -1,0 +1,142 @@
+* {
+	box-sizing: border-box;
+}
+input {
+	margin-left: 1px;
+	margin-right: 1px;
+}
+p {
+	margin: 5px;
+}
+.main_box {
+	/*эта фигня объединет вообще все блоки (Кирилл)*/
+	margin: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	display: flex-wrap ;
+	justify-content: center;
+
+}
+.blocks_wraper {
+	/*эта фигня объединяет блоки по горизонтали (Кирилл)*/
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 1px;
+	margin: 1px;
+	/**/
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	min-width: 445px;
+}
+.list_blocks {
+	/*класс для всех блоков*/
+	/*тестовый кусок начало*/
+	border: 1px solid black;
+	border-radius: 10px;
+	padding: 10px;
+	/*тестовый кусок кончало*/
+	/* сюда есть вариант вставить 
+	display: inline;
+	в блоки ниже тоже что-то подобное
+	и вообще не париться про адаптивность (Кирилл)*/
+	display: grid;
+	flex-wrap: wrap;
+	margin: 10px;
+	flex-basis: auto;
+	height: auto;
+	align-content: stretch;
+}
+.info_box {
+	margin: 2px;
+}
+.char_box, .skill_box {
+	float: right;
+}
+.block_title {
+	/*Заголовки внутри блока*/
+	text-align: center;
+	font-weight: bold;
+}
+.block_subtitle {
+	/*Заголовки внутри блока*/
+	text-align: center;
+	font-weight: bold;
+}
+.skill_name {
+	float: left;
+	margin: 2px;
+}
+.skill_subbox {
+	margin: 5px;
+	display: flex;
+	justify-content: space-between;
+	min-width: 250px;
+	max-width: 500px;
+
+}
+.char_box, .skill_box {
+	margin: 2px;
+}
+.skills_innerty {
+	display: flex;
+	justify-content: center;
+	align-items: auto;
+	flex-wrap: wrap;
+	/*
+	flex-flow: row wrap;
+	flex-direction: column;
+	grid-column: auto;
+	max-height: 700px;
+	*/
+}
+.skill_box {
+
+}
+.innerty {
+	/*внутренности отдельного блока*/
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+
+}
+#block_3 {
+	min-width: 170px;
+	min-height: 187px;
+}
+#block_2, #block_4 {
+	min-width: 265px;
+}
+#block_5 {
+	justify-content: center;
+	flex-wrap: wrap;
+}
+#block_5 .skill_subbox{
+	min-width: 400px;
+}
+#age_text {
+	float: left;
+}
+#gender_text {
+	float: right;
+}
+/*Блок бонус к урону*/
+.btd_subbox {
+	border: 1px dotted; gray;
+	display: flex;
+}
+.btd_name {
+
+}
+.btd_content {
+	display: flex;
+	font-size: 200%;
+}
+#btd_doje_full, #btd_doje_half, #btd_doje_fifth {
+	margin: 5px;
+}
+#btd_doje_full {
+}
+#btd_doje_half, #btd_doje_fifth {
+	font-size: 50%;
+}

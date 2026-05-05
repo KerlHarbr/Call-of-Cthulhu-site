@@ -1,6 +1,3 @@
-function test2(id1, id2){
-	set_value(id2, get_value(id1));
-}
 function get_value(id){
 	/возвращает значение переменной по айди/
 	return document.getElementById(id).value;
@@ -149,4 +146,35 @@ function btd_komp_count(str_id, bod_id, btd_id, komp_id) {
         set_text_by_id(btd_id, "+6d6");
 		set_text_by_id(komp_id, "7");
     } 
+}
+function make_sheet() {//собирает листок
+	var form = document.getElementById("player_sheet");
+	var form_length = form.length;
+
+	var output_names = [];
+	var output = [];
+
+	for (var i = 0; i < form_length - 1; i++) { //- 1 потому, что у кнопки отправки тоже часть формы
+		output_names[i] = form[i+1].id;
+		output[i] = form[i+1].value; //+ 1 потому, что у кнопки отправки тоже часть формы
+	}
+	
+	var list_bildup = {};
+	for (var i = 0; i < form_length - 1; i++) {
+		list_bildup[output_names[i]] = output[i];
+	}
+	return list_bildup;
+}
+//отправка листа на сервер
+async function send_sheet() {
+	var body_bildup = make_sheet();
+
+	var response = await fetch("/lists", {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(body_bildup)
+	});
+	const responseText = await response.text(); 
+	console.log(responseText);
+
 }
