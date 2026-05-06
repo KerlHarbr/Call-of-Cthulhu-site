@@ -41,7 +41,16 @@ app.get("/login", function(request, response) {
 	response.sendFile(__dirname + "/login_form.html")
 });
 //маршрутизация конец
-
+//переадресация начало
+app.get("/register", function(request, response) {
+	response.redirect("login");
+});
+//переадресация конец
+//тестовые ссылки начало
+app.get("/testConnection", function(request, response) {
+	response.send(SQL_servise.checkConnection());
+});
+//тестовые ссылки конец
 //обработчики начало
 //обработка входа
 app.post("/login", urlencodedParser, function(request, response) {
@@ -49,6 +58,11 @@ app.post("/login", urlencodedParser, function(request, response) {
 	var login = request.body.email;
 	var password = request.body.password;
 	SQL_servise.autentification(login, password);
+});
+
+//обработка регистрации
+app.post("/register", function(request, response) {
+	response.redirect("login");
 });
 
 //обработка листа
@@ -68,8 +82,8 @@ app.use(function(request, response) {
 });
 //обработчики конец
 
-SQL_servise.checkConnection();
-
 app.listen(port, function() {
+	console.log("");
 	console.log(time_start + " | Сервер запущен по адресу Http://localhost:" + port);
+	console.log("");
 });

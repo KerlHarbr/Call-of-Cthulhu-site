@@ -24,6 +24,15 @@ CREATE TABLE IF NOT EXISTS Sheets
 	FOREIGN KEY(FUsersKey) REFERENCES Users(UsersKey) ON DELETE CASCADE
 );
 
+CREATE TABLE IF NOT EXISTS Sessions
+(
+	SessionKey INT UNSIGNED AUTO_INCREMENT,
+	SUserKey INT UNSIGNED,
+	SessionId VARCHAR(64),
+	PRIMARY KEY(SessionKey),
+	FOREIGN KEY(SUserKey) REFERENCES Users(UsersKey) ON DELETE CASCADE
+);
+
 #тестовые данные
 INSERT Users(Login, Passwod, RegDate)
 VALUES ('admin', 'admin', '2026-05-05 11:43:00');
