@@ -46,7 +46,9 @@ app.get("/login", function(request, response) {
 //обработка входа
 app.post("/login", urlencodedParser, function(request, response) {
 	if(!request.body) return response.sendStatus(400);
-	console.log(request.body.email);
+	var login = request.body.email;
+	var password = request.body.password;
+	SQL_servise.autentification(login, password);
 });
 
 //обработка листа
@@ -65,6 +67,8 @@ app.use(function(request, response) {
 	console.log(time + " | Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
 });
 //обработчики конец
+
+SQL_servise.checkConnection();
 
 app.listen(port, function() {
 	console.log(time_start + " | Сервер запущен по адресу Http://localhost:" + port);
