@@ -16,6 +16,13 @@ app.use(express.static("styles"));
 app.use(express.static("js"));
 app.use(express.static("pics"));
 
+//вывод логов в консоль
+function consoleLog(text, err) {
+	if(err == undefined) err = "";
+	var time = new Date().toLocaleTimeString();
+	console.log(time + " | " + text + " | " + err);
+};
+
 //маршрутизация начало
 app.get("/", function(request, response){
 	response.sendFile(__dirname + "/koc_main.html");
@@ -53,11 +60,12 @@ app.get("/testConnection", function(request, response) {
 //тестовые ссылки конец
 //обработчики начало
 //обработка входа
-app.post("/login", urlencodedParser, function(request, response) {
+app.post("/login", urlencodedParser,async function(request, response) {
 	if(!request.body) return response.sendStatus(400);
 	var login = request.body.email;
 	var password = request.body.password;
-	SQL_servise.autentification(login, password);
+	var session_id = await SQL_servise.autentification(login, password);
+	consoleLog("session_id "+session_id); // вот это надо вернуть как куки
 });
 
 //обработка регистрации
