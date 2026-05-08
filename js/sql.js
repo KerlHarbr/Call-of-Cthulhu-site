@@ -52,7 +52,7 @@ exports.query_log = function(err, results, fields) {//вывод .query в ко�
 };
 //для формы входа начало
 exports.autentification = function(login, password) {
-	return new Promise(function(resolve) {
+	return new Promise(function(resolve_end, reject_end) {
 		consoleLog('Попытка входа в учётную запись{ login : "'+login+'", password : "'+password+'" }');
 		var login_promise = connection.promise().query("SELECT Login FROM users WHERE Login =?", login, function(err, results, fields) {
 			resolve(results);
@@ -83,16 +83,14 @@ exports.autentification = function(login, password) {
 				if(login_inner == login) {
 					if (password_inner == password) {
 						consoleLog('Авторизация разрешена');
-						var cookie_return = await auterisation_inner(login_inner, password_inner).then(function(value) {
-							consoleLog("value.sql.js "+ value);
-							resolve(value);
-						});
-						// resolve(cookie_return);
+						var cookie_return = auterisation_inner(login_inner, password_inner);
+						// consoleLog("cookie_return " + cookie_return);
+						resolve_end(cookie_return);
 					} else {
-						consoleLog("Не верный пароль");
+						reject_end("Не верный пароль");
 					};
 				} else {
-					consoleLog("Не верный логин или пароль");
+					reject_end("Не верный логин или пароль");
 				};
 			});
 		});
@@ -121,7 +119,7 @@ auterisation_inner = async function(login) {
 			if(err) consoleLog("Ошибка добавления ключа сессии в БД", err);
 		});
 		//а тут передать это пользователю
-		consoleLog("session_id " + session_id);
+		consoleLog("session_id.sql.js " + session_id);
 		return(session_id);
 	} else {//если сессия есть, то удалить и создать заново
 		//передаём в базу
@@ -130,7 +128,7 @@ auterisation_inner = async function(login) {
 			if(err) consoleLog("Ошибка обновления ключа сессии в БД", err);
 		});
 		//а тут передать это пользователю
-		consoleLog("session_id " + session_id);
+		consoleLog("session_id.sql.js " + session_id);
 		return(session_id);
 	};
 };

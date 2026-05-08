@@ -64,8 +64,20 @@ app.post("/login", urlencodedParser,async function(request, response) {
 	if(!request.body) return response.sendStatus(400);
 	var login = request.body.email;
 	var password = request.body.password;
-	var session_id = await SQL_servise.autentification(login, password);
-	consoleLog("session_id "+session_id); // вот это надо вернуть как куки
+	var session_id;
+	SQL_servise.autentification(login, password)
+		.then(function(value) {
+			session_id =  value;// вот это надо вернуть как куки
+			consoleLog("session_id "+session_id);
+			response.cookie('session_id', session_id, {maxAge: 43200000});
+			response.redirect("/");
+	})
+		.catch(function(error) {
+			consoleLog("Ошибка входа", error);
+			// response.send('<script>alert("Ошибка входа")</script>');
+			response.redirect("/login");
+		});
+
 });
 
 //обработка регистрации
@@ -86,7 +98,7 @@ app.use(function(request, response) {
 	var time = new Date().toLocaleTimeString();
 	response.status(404);
 	response.sendFile(__dirname + "/404.html");
-	console.log(time + " | Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
+	consoleLog("Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
 });
 //обработчики конец
 

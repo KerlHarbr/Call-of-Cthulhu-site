@@ -11,3 +11,7 @@ function get_session_cookie(session_id) {
 	document.cookie = session_id;
 	console.log(document.cookie);
 };
+function something_wrong(info, error) {
+	var err_text = info + " " + error;
+	alert(err_text);
+};
