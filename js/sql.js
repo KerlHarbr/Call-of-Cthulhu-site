@@ -107,8 +107,9 @@ auterisation_inner = async function(login) {
 	session_obj = await connection.promise().query("SELECT * FROM  sessions WHERE SUserKey=?", user_obj[0][0].UsersKey, function(err, results, fields) {
 		resolve(results);
 	});
-	const max=9999999999999999999999999999999999999999999999999999999999999999;
-	const min=1000000000000000000000000000000000000000000000000000000000000000;
+	consoleLog(user_obj);
+	const max=9999999999999999;
+	const min=1000000000000000;
 	session_id = Math.floor(Math.random() * (max - min + 1) + min);
 	var array = [];
 	// var cookie_data = new Promise(function() {});
@@ -124,6 +125,7 @@ auterisation_inner = async function(login) {
 	} else {//если сессия есть, то удалить и создать заново
 		//передаём в базу
 		array = [session_id, user_obj[0][0].UsersKey];
+		// consoleLog(array);
 		connection.query("UPDATE sessions SET SessionId=? WHERE SUserKey=?", array, function(err, results) {
 			if(err) consoleLog("Ошибка обновления ключа сессии в БД", err);
 		});
@@ -139,3 +141,34 @@ registration_inner = function() {
 };
 exports.registration = registration_inner;
 //для формы входа конец
+
+//сверка айди сессии
+exports.session_id_comp =async function(session_id) {
+	var session_id_inner = session_id;
+	consoleLog("session_id_inner == " + session_id_inner);
+
+	var session_id_obj = await connection.promise().query("SELECT * FROM Sessions WHERE SessionId=?", session_id_inner, function(err, results, fields) {
+		resolve(results);
+	});
+	return(session_id_obj[0][0].SUserKey);
+};
+//вернуть данные пользователя для страницы профиля
+exports.return_user_data = async function(user_id) {
+	var user_data_obj = await connection.promise().query("SELECT * FROM Users WHERE UsersKey=?", user_id, function(err, results, fields) {
+		resolve(results);
+	});
+	// consoleLog(user_data_obj[0][0].Login);
+	// consoleLog(user_data_obj[0][0].RegDate);
+	var return_obj = {
+		user_login: user_data_obj[0][0].Login,
+		reg_date: user_data_obj[0][0].RegDate
+	};
+	consoleLog("return_obj " + return_obj);
+	consoleLog("return_obj[0] " + return_obj.user_login);
+	
+	return(return_obj);
+};
+//вернуть данные по листам для страницы листов
+exports.return_player_lists_list = async function(user_id) {};
+//вернуть данные по конкретному листу
+exports.return_player_list = async function(user_id, list_id) {};

@@ -10,7 +10,8 @@ const port = 3000; //это порт сервера
 const urlencodedParser = express.urlencoded({extended: false});//парсер для формы входа
 const jsonParser = express.json();//парсер для джисуна
 const SQL_servise = SQL_am; //свой модуль
-
+var cookie_sid_flag;
+var trans_func_data;
 
 app.use(express.static("styles"));
 app.use(express.static("js"));
@@ -32,8 +33,67 @@ app.get("/help", function(request, response){
 	response.sendFile(__dirname + "/koc_help.html");
 });
 
-app.get("/profile", function(request, response){
-	response.sendFile(__dirname + "/koc_profile.html");
+app.post("/profile", jsonParser,async function(request, response) {
+	const cookie_session_id = await request.body;
+	if(!cookie_session_id) return response.status(400);
+	try{
+		consoleLog('cookie_session_id.session_id == ' + cookie_session_id.session_id);
+	} catch {
+		consoleLog('cookie_session_id.session_id == "none"');
+	};
+	if (cookie_session_id.session_id == undefined) {
+		cookie_sid_flag = 0;
+	} else {
+		cookie_sid_flag = 1;
+	};
+	consoleLog('cookie_session_id_flag == ' + cookie_sid_flag);
+	if (cookie_sid_flag == 1) {
+		var user_id = await SQL_servise.session_id_comp(cookie_session_id.session_id);
+		trans_func_data = SQL_servise.return_user_data(user_id);
+		consoleLog(trans_func_data);
+		// consoleLog('cookie_session_id.session_id == ' + cookie_session_id.session_id);
+	} else {
+		trans_func_data = await 0;
+		// consoleLog('cookie_session_id.session_id == "none"');
+		response.status(401);//Разбберись с переадресацией на страницу входа
+	};
+	
+});
+
+app.use("/profile", function(request, response, next) {
+	setTimeout(function() {
+		next()
+	},1000);
+});
+
+app.get("/profile",function(request, response){
+	setTimeout(function() {
+		var profileHeader = "";
+		var profileContent = "";
+		var replace_data
+		fs.readFile("koc_profile.html",async function(error, data) {
+			if (error) {
+				response.status(500);
+				consoleLog("Ошибка 500 при прогрузке файла", error);
+			} else {
+				var local_trans_func_data = await trans_func_data;
+				var local_cookie_sid_flag = await cookie_sid_flag;
+				consoleLog("trans_func_data " + local_trans_func_data);
+				consoleLog("cookie_session_id_flag " + local_cookie_sid_flag);
+				if (cookie_sid_flag == 1) {
+					profileHeader = "Данные пользователя";
+					profileContent = "flag = 1";
+				} else {
+					profileHeader = "Вы не зарегестрированы";
+					profileContent = "flag = 0";
+				};
+				replace_data = data.toString()
+					.replace(/{profileHeader}/g, profileHeader)
+					.replace(/{profileContent}/g, profileContent);
+				response.end(replace_data);
+			};
+		});
+	},1000);
 });
 
 app.get("/lists", function(request, response){
@@ -50,6 +110,10 @@ app.get("/login", function(request, response) {
 //маршрутизация конец
 //переадресация начало
 app.get("/register", function(request, response) {
+	response.redirect("login");
+});
+
+app.get("/login_get",function(request, response) {
 	response.redirect("login");
 });
 //переадресация конец
@@ -92,6 +156,7 @@ app.post("/lists", jsonParser, function(request, response) {
 	const responseText = 'znach ' + sheet.character_name;
 	response.send(responseText);
 });
+
 
 //обработка ошибки 404
 app.use(function(request, response) {
