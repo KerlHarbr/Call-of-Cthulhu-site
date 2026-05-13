@@ -20,4 +20,19 @@ async function cookies_post() {
 		});
 	};
 };
-cookies_post();//отправка куки
+cookies_post();//отправка значения
+async function set_data() {
+	var test = "penis";
+	var response;
+	try {
+		response = await fetch("/profile", {
+			method: "PUT",
+			body: test
+		});
+		console.log(test);
+	} catch(error) {
+		console.log("ну не получилось", error);
+	};
+	console.log("test " + test);
+};
+set_data();

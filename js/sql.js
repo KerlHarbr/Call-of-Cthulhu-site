@@ -145,7 +145,7 @@ exports.registration = registration_inner;
 //сверка айди сессии
 exports.session_id_comp =async function(session_id) {
 	var session_id_inner = session_id;
-	consoleLog("session_id_inner == " + session_id_inner);
+	// consoleLog("session_id_inner == " + session_id_inner);
 
 	var session_id_obj = await connection.promise().query("SELECT * FROM Sessions WHERE SessionId=?", session_id_inner, function(err, results, fields) {
 		resolve(results);
@@ -163,8 +163,8 @@ exports.return_user_data = async function(user_id) {
 		user_login: user_data_obj[0][0].Login,
 		reg_date: user_data_obj[0][0].RegDate
 	};
-	consoleLog("return_obj " + return_obj);
-	consoleLog("return_obj[0] " + return_obj.user_login);
+	// consoleLog("return_obj " + return_obj);
+	// consoleLog("return_obj[0] " + return_obj.user_login);
 	
 	return(return_obj);
 };

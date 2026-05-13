@@ -37,64 +37,89 @@ app.post("/profile", jsonParser,async function(request, response) {
 	const cookie_session_id = await request.body;
 	if(!cookie_session_id) return response.status(400);
 	try{
-		consoleLog('cookie_session_id.session_id == ' + cookie_session_id.session_id);
+		// consoleLog('cookie_session_id.session_id == ' + cookie_session_id.session_id);
 	} catch {
-		consoleLog('cookie_session_id.session_id == "none"');
+		// consoleLog('cookie_session_id.session_id == "none"');
 	};
 	if (cookie_session_id.session_id == undefined) {
 		cookie_sid_flag = 0;
 	} else {
 		cookie_sid_flag = 1;
 	};
-	consoleLog('cookie_session_id_flag == ' + cookie_sid_flag);
+	// consoleLog('cookie_session_id_flag post ' + cookie_sid_flag);
 	if (cookie_sid_flag == 1) {
 		var user_id = await SQL_servise.session_id_comp(cookie_session_id.session_id);
-		trans_func_data = SQL_servise.return_user_data(user_id);
-		consoleLog(trans_func_data);
+		trans_func_data = await SQL_servise.return_user_data(user_id);
 		// consoleLog('cookie_session_id.session_id == ' + cookie_session_id.session_id);
 	} else {
 		trans_func_data = await 0;
 		// consoleLog('cookie_session_id.session_id == "none"');
 		response.status(401);//Разбберись с переадресацией на страницу входа
 	};
-	
+
+	consoleLog("trans_func_data" + trans_func_data);
+	response.send(trans_func_data);
 });
 
-app.use("/profile", function(request, response, next) {
+app.use(async function(request, response, next){
+	var profileHeader = "";
+	var profileContent = "";
+	var replace_data;
+	fs.readFile("koc_profile.html",function(error, data) {
+		if (error) {
+			response.status(500);
+			consoleLog("Ошибка 500 при прогрузке файла", error);
+		};
+	});
 	setTimeout(function() {
-		next()
-	},1000);
+		next();
+	},5);
 });
 
-app.get("/profile",function(request, response){
-	setTimeout(function() {
-		var profileHeader = "";
-		var profileContent = "";
-		var replace_data
-		fs.readFile("koc_profile.html",async function(error, data) {
-			if (error) {
-				response.status(500);
-				consoleLog("Ошибка 500 при прогрузке файла", error);
-			} else {
+
+app.use("/profile",async function(request, response){
+	// var test;
+	// try {
+	// 	test = await fetch(__dirname + "/profile");
+	// 	consoleLog(test.json());
+	// } catch(error) {
+	// 	consoleLog("ну не получилось", error);
+	// };
+	// consoleLog("test " + test);
+	// response.send("Проверка");
+	var profileHeader = "";
+	var profileContent = "";
+	var replace_data;
+	fs.readFile("koc_profile.html",async function(error, data) {
+		if (error) {
+			response.status(500);
+			consoleLog("Ошибка 500 при прогрузке файла", error);
+		} else {
+			// setTimeout(async function() {
 				var local_trans_func_data = await trans_func_data;
 				var local_cookie_sid_flag = await cookie_sid_flag;
-				consoleLog("trans_func_data " + local_trans_func_data);
-				consoleLog("cookie_session_id_flag " + local_cookie_sid_flag);
-				if (cookie_sid_flag == 1) {
+				consoleLog("trans_func_data get " + local_trans_func_data);
+				consoleLog("cookie_session_id_flag get " + local_cookie_sid_flag);
+				// if (cookie_sid_flag == 1) {
 					profileHeader = "Данные пользователя";
-					profileContent = "flag = 1";
-				} else {
-					profileHeader = "Вы не зарегестрированы";
-					profileContent = "flag = 0";
-				};
+					try {
+						profileContent = trans_func_data.user_login + "   " + trans_func_data.reg_date;
+					} catch(err) {
+						consoleLog("blyat'", err);
+					};
+				// } else {
+				// 	profileHeader = "Вы не зарегестрированы";
+				// 	profileContent = "flag = 0";
+				// };
 				replace_data = data.toString()
 					.replace(/{profileHeader}/g, profileHeader)
 					.replace(/{profileContent}/g, profileContent);
-				response.end(replace_data);
-			};
-		});
-	},1000);
+				response.send(replace_data);
+			// },1000);
+		};
+	});
 });
+
 
 app.get("/lists", function(request, response){
 	response.sendFile(__dirname + "/koc_sheet.html");
