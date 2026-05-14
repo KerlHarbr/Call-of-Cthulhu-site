@@ -11,7 +11,6 @@ const urlencodedParser = express.urlencoded({extended: false});//парсер д
 const jsonParser = express.json();//парсер для джисуна
 const SQL_servise = SQL_am; //свой модуль
 
-
 app.use(express.static("styles"));
 app.use(express.static("js"));
 app.use(express.static("pics"));
@@ -23,6 +22,14 @@ app.get("/", function(request, response){
 
 app.get("/help", function(request, response){
 	response.sendFile(__dirname + "/koc_help.html");
+});
+
+app.get("/guide/htm_sheet", function(request, response) {
+	response.sendFile(__dirname + "/koc_materials_make_a_sheet.html");
+});
+
+app.get("/guide", function(request, response) {
+	response.sendFile(__dirname + "/koc_materials.html");
 });
 
 app.get("/profile", function(request, response){
