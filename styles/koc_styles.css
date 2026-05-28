@@ -87,6 +87,21 @@ body {
 .publication_data {
 	font-style: italic;
 }
+table {
+	border: 1px solid black;
+	border-radius: 10px;
+	border-collapse: collapse;
+}
+caption {
+	font-weight: 600;
+}
+tr, th {
+	border: 1px solid black;
+	font-weight: 300;
+}
+thead th {
+	font-weight: 600;
+}
 /*конец элементов статей*/
 /*страница ошибки*/
 .err_text {
