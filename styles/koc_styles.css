@@ -10,6 +10,10 @@ header {
 header a {
 	color: black;
 }
+p {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
 .logo {
 	float: left;
 	padding: 1px;
@@ -58,8 +62,55 @@ body {
 	margin: 0px;
 	clear: both;
 }
+/*начало элементов статей*/
 /*тело для статей*/
 .main_box {
 	padding-left: 10%;
 	padding-right: 10%;
+}
+/*тело отдельной статьи*/
+.publication {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+/*название статьи*/
+.publication_title {
+	font-size: 200%;
+	text-indent: 35px;
+	font-weight: 600;
+}
+/*начинка статьи*/
+.publication_content {
+	text-indent: 35px;
+}
+/*дата статьи*/
+.publication_data {
+	font-style: italic;
+}
+table {
+	border: 1px solid black;
+	border-radius: 10px;
+	border-collapse: collapse;
+}
+caption {
+	font-weight: 600;
+}
+tr, th {
+	border: 1px solid black;
+	font-weight: 300;
+}
+thead th {
+	font-weight: 600;
+}
+/*конец элементов статей*/
+/*страница ошибки*/
+.err_text {
+	text-indent: 35px;
+}
+.err_text li{
+	text-indent: 0px;
+}
+.err_title {
+	text-align: center;
+	font-size: 300%;
 }
