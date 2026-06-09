@@ -101,6 +101,7 @@ p {
 
 }
 #block_3 {
+	display: none;
 	min-width: 170px;
 	min-height: 187px;
 }

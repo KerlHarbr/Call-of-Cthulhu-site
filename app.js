@@ -17,35 +17,43 @@ app.use(express.static("pics"));
 
 //маршрутизация начало
 app.get("/", function(request, response){
-	response.sendFile(__dirname + "/koc_main.html");
+	response.sendFile(__dirname + "/main.html");
 });
 
 app.get("/help", function(request, response){
-	response.sendFile(__dirname + "/koc_help.html");
+	response.sendFile(__dirname + "/help.html");
 });
 
-app.get("/guide/htm_sheet", function(request, response) {
-	response.sendFile(__dirname + "/koc_materials_make_a_sheet.html");
-});
 
-app.get("/guide", function(request, response) {
-	response.sendFile(__dirname + "/koc_materials.html");
-});
 
 app.get("/profile", function(request, response){
-	response.sendFile(__dirname + "/koc_profile.html");
+	response.sendFile(__dirname + "/profile.html");
 });
 
-app.get("/lists", function(request, response){
-	response.sendFile(__dirname + "/koc_sheet.html");
-});
 
 app.get("/copyright", function(request, response){
-	response.sendFile(__dirname + "/koc_copyright.html");
+	response.sendFile(__dirname + "/copyright.html");
 });
 
 app.get("/login", function(request, response) {
 	response.sendFile(__dirname + "/login_form.html")
+});
+//маршрутизация ктулху
+
+app.get("/coc", function(request, response) {
+	response.sendFile(__dirname + "/coc_main.html");
+});
+
+app.get("/coc/lists", function(request, response){
+	response.sendFile(__dirname + "/koc_sheet.html");
+});
+
+app.get("/coc/guide", function(request, response) {
+	response.sendFile(__dirname + "/koc_materials.html");
+});
+
+app.get("/coc/guide/htm_sheet", function(request, response) {
+	response.sendFile(__dirname + "/koc_materials_make_a_sheet.html");
 });
 //маршрутизация конец
 
@@ -57,7 +65,7 @@ app.post("/login", urlencodedParser, function(request, response) {
 });
 
 //обработка листа
-app.post("/lists", jsonParser, function(request, response) {
+app.post("/coc/lists", jsonParser, function(request, response) {
 	const sheet = request.body;
 	if(!sheet) return response.status(400);//в sheet прилетает json листка. Как на лонгстори
 	const responseText = 'znach ' + sheet.character_name;

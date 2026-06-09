@@ -169,7 +169,7 @@ function make_sheet() {//собирает листок
 async function send_sheet() {
 	var body_bildup = make_sheet();
 
-	var response = await fetch("/lists", {
+	var response = await fetch("/coc/lists", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify(body_bildup)

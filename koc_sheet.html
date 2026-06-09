@@ -4,21 +4,21 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width">
 		<title>Листы</title>
-		<link rel="stylesheet" href="koc_styles.css">
-		<link rel="stylesheet" href="koc_sheet_styles.css">
-		<link rel="icon" type="image/x-icon" href="ph32.png">
-		<script src="koc_main_script.js"></script>
-		<script src="koc_sheet_script.js"></script>
+		<link rel="stylesheet" href="../koc_styles.css">
+		<link rel="stylesheet" href="../koc_sheet_styles.css">
+		<link rel="icon" type="image/x-icon" href="../ph32.png">
+		<script src="../koc_main_script.js"></script>
+		<script src="../koc_sheet_script.js"></script>
 	</head>
 	<body>
 		<header>
 			<a href="/" class="logo">
-				<img src="ph2.png" alt="logo"/>
+				<img src="../ph2.png" alt="logo"/>
 			</a>
 			<div class="nav_bar">
 				<a href="/" class="nav_button">На главную</a>
-				<a href="/guide" class="nav_button">Справочник</a>
-				<a href="/lists" class="nav_button">Интерактивные листы</a>
+				<a href="/coc/guide" class="nav_button">Справочник</a>
+				<a href="/coc/lists" class="nav_button">Интерактивные листы</a>
 				<a href="/profile" class="nav_button">Профиль</a>
 			</div>
 		</header>
@@ -27,6 +27,8 @@
 			<form autocomplete="off" id="player_sheet" method="post">
 				<div class="block_title">
 					<button type="submit" id="submit_btt" onclick="send_sheet()">Отправить лист</button>
+					<button id="download_btt">Скачать лист</button>
+					<button id="send_btt">Загрузить лист</button>
 				</div>
 				<div class="block_title">Лист 1</div>
 				<div class="blocks_wraper"><!---Бокс для 1-3 блоков--->
