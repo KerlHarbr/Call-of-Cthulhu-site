@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+	<head>
+		<meta charset="utf-8">
+		<title>Вход</title>
+		<link rel="stylesheet" href="koc_styles.css">
+		<link rel="icon" type="image/x-icon" href="ph32.png">
+		<link rel="stylesheet" type="text/css" href="login_styles.css">
+		<script src="register.js"></script>
+	</head>
+	<body>
+		<div class="form_main_box">
+			<div class="back_button_box"><a href="\login" class="back_button">Вернуться</a></div>
+			<form method="post" action="/register">
+				<div id="reg_title" class="form_title">Регистрация</div>
+				<div>
+					<div>
+						<div id="email_box" class="input_title">Почта</div>
+						<div><input type="text" required name="email"></div>
+					</div>
+					<div>
+						<div id="password_box" class="input_title">Пароль</div>
+						<div><input type="password" required name="password"></div>
+					</div>
+				</div>
+				<div id="finish_reg_button_box" class="custom_button">
+					<button type="submit">Зарегестрироваться</button>
+				</div>
+			</form>
+		</div>
+	</body>
+</html>

@@ -22,7 +22,7 @@ async function cookies_post() {
 };
 cookies_post();//отправка значения
 async function set_data() {
-	var test = "penis";
+	var test = "test_data";
 	var response;
 	try {
 		response = await fetch("/profile", {

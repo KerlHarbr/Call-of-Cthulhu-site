@@ -10,19 +10,17 @@ const port = 3000; //это порт сервера
 const urlencodedParser = express.urlencoded({extended: false});//парсер для формы входа
 const jsonParser = express.json();//парсер для джисуна
 const SQL_servise = SQL_am; //свой модуль
+//логер
+const loger = require("./js/loger")
+var consoleLog = loger.consoleLog;
+var logToFile = loger.logToFile;
+
 var cookie_sid_flag;
 var trans_func_data;
 
 app.use(express.static("styles"));
 app.use(express.static("js"));
 app.use(express.static("pics"));
-
-//вывод логов в консоль
-function consoleLog(text, err) {
-	if(err == undefined) err = "";
-	var time = new Date().toLocaleTimeString();
-	console.log(time + " | " + text + " | " + err);
-};
 
 //маршрутизация начало
 app.get("/", function(request, response){
@@ -69,6 +67,7 @@ app.use(async function(request, response, next){
 		if (error) {
 			response.status(500);
 			consoleLog("Ошибка 500 при прогрузке файла", error);
+			logToFile("Ошибка 500 при прогрузке файла", error);
 		};
 	});
 	setTimeout(function() {
@@ -94,6 +93,7 @@ app.use("/profile",async function(request, response){
 		if (error) {
 			response.status(500);
 			consoleLog("Ошибка 500 при прогрузке файла", error);
+			logToFile("Ошибка 500 при прогрузке файла", error);
 		} else {
 			// setTimeout(async function() {
 				var local_trans_func_data = await trans_func_data;
@@ -105,7 +105,7 @@ app.use("/profile",async function(request, response){
 					try {
 						profileContent = trans_func_data.user_login + "   " + trans_func_data.reg_date;
 					} catch(err) {
-						consoleLog("blyat'", err);
+						consoleLog("error'", err);
 					};
 				// } else {
 				// 	profileHeader = "Вы не зарегестрированы";
@@ -135,7 +135,7 @@ app.get("/login", function(request, response) {
 //маршрутизация конец
 //переадресация начало
 app.get("/register", function(request, response) {
-	response.redirect("login");
+	response.sendFile(__dirname + "/register_form.html");
 });
 
 app.get("/login_get",function(request, response) {
@@ -170,8 +170,17 @@ app.post("/login", urlencodedParser,async function(request, response) {
 });
 
 //обработка регистрации
-app.post("/register", function(request, response) {
-	response.redirect("login");
+app.post("/register", urlencodedParser, async function(request, response) {
+	if(!request.body) return response.sendStatus(400);
+	var login = request.body.email;
+	var password = request.body.password;
+	// consoleLog(login +""+ password);
+	// SQL_servise.registration(login, password);
+	if(await SQL_servise.registration(login, password)) {
+		consoleLog("reg allowed");
+	} else {
+		consoleLog("reg prohibidet")
+	};
 });
 
 //обработка листа
@@ -189,6 +198,7 @@ app.use(function(request, response) {
 	response.status(404);
 	response.sendFile(__dirname + "/404.html");
 	consoleLog("Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
+	logToFile("Пользователь получил ошибку 404 пытаясь перейти по: " + "Http://localhost" + request.url);
 });
 //обработчики конец
 
@@ -196,4 +206,5 @@ app.listen(port, function() {
 	console.log("");
 	console.log(time_start + " | Сервер запущен по адресу Http://localhost:" + port);
 	console.log("");
+	logToFile(time_start + " | Сервер запущен по адресу Http://localhost:" + port);
 });
