@@ -26,10 +26,6 @@ app.get("/help", function(request, response){
 
 
 
-app.get("/profile", function(request, response){
-	response.sendFile(__dirname + "/profile.html");
-});
-
 
 app.get("/copyright", function(request, response){
 	response.sendFile(__dirname + "/copyright.html");
