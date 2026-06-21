@@ -142,9 +142,38 @@ app.get("/coc/guide/htm_sheet", function(request, response) {
 
 //обработчики начало
 //обработка входа
-app.post("/login", urlencodedParser, function(request, response) {
+app.post("/login", urlencodedParser,async function(request, response) {
 	if(!request.body) return response.sendStatus(400);
-	console.log(request.body.email);
+	var login = request.body.email;
+	var password = request.body.password;
+	var session_id;
+	SQL_servise.autentification(login, password)
+		.then(function(value) {
+			session_id =  value;// вот это надо вернуть как куки
+			consoleLog("session_id "+session_id);
+			response.cookie('session_id', session_id, {maxAge: 43200000});
+			response.redirect("/");
+	})
+		.catch(function(error) {
+			consoleLog("Ошибка входа", error);
+			// response.send('<script>alert("Ошибка входа")</script>');
+			response.redirect("/login");
+		});
+
+});
+
+//обработка регистрации
+app.post("/register", urlencodedParser, async function(request, response) {
+	if(!request.body) return response.sendStatus(400);
+	var login = request.body.email;
+	var password = request.body.password;
+	// consoleLog(login +""+ password);
+	// SQL_servise.registration(login, password);
+	if(await SQL_servise.registration(login, password)) {
+		consoleLog("reg allowed");
+	} else {
+		consoleLog("reg prohibidet")
+	};
 });
 
 //обработка листа
